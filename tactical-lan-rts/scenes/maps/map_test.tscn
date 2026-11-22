@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://c7v824bjuicmn"]
 
+[ext_resource type="Script" uid="uid://bhbnxjdcx03lo" path="res://scripts/system/camera_rig.gd" id="1_rd6yc"]
+[ext_resource type="PackedScene" uid="uid://c0gw0r3ge2h7u" path="res://scenes/units/soldier.tscn" id="2_ph6jt"]
+[ext_resource type="Script" uid="uid://cedqu38efrtdt" path="res://scripts/system/rts_controller.gd" id="3_3nee8"]
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_qk5q5"]
 vertices = PackedVector3Array(-19.5, 0.5, 4, -6, 0.5, 4, -6, 0.5, 1.75, -5.5, 0.5, 1.5, -5.5, 0.5, -19.5, -19.5, 0.5, -19.5, -4, 0.5, 1.5, -3.75, 0.5, 2, 2.5, 0.5, 0.75, 2.75, 0.5, -1, 5, 0.5, -19.5, 5, 0.5, -1, 7.5, 0.5, -1, 7.75, 0.5, 0, 19.5, 0.5, 0, 19.5, 0.5, -19.5, 7.25, 0.5, 1.25, 6, 0.5, 19.5, 19.5, 0.5, 19.5, 5.75, 0.5, 1.25, 2.75, 0.5, 1.25, -3.75, 0.5, 6.25, -5, 0.5, 6.75, -5, 0.5, 19.5, -6, 0.5, 6.5, -19.5, 0.5, 19.5)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 6, 3), PackedInt32Array(9, 3, 4), PackedInt32Array(9, 4, 10), PackedInt32Array(10, 11, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 10), PackedInt32Array(12, 11, 10), PackedInt32Array(13, 14, 16), PackedInt32Array(16, 14, 18), PackedInt32Array(16, 18, 17), PackedInt32Array(17, 19, 16), PackedInt32Array(8, 20, 7), PackedInt32Array(7, 20, 21), PackedInt32Array(23, 22, 21), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 23), PackedInt32Array(23, 19, 17), PackedInt32Array(22, 23, 24), PackedInt32Array(24, 23, 25), PackedInt32Array(24, 25, 0), PackedInt32Array(0, 1, 24)]
@@ -51,3 +55,35 @@ mesh = SubResource("BoxMesh_8hrwj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Wall2" unique_id=271945552]
 shape = SubResource("BoxShape3D_8hrwj")
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=720810120]
+script = ExtResource("1_rd6yc")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=74200812]
+transform = Transform3D(0.70710677, -0.40860704, 0.5770964, 0, 0.8161376, 0.5778576, -0.70710677, -0.40860704, 0.5770964, 20, 20, 20)
+projection = 1
+size = 18.0
+
+[node name="soldier" parent="." unique_id=50485714 instance=ExtResource("2_ph6jt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+
+[node name="soldier2" parent="." unique_id=1139646449 instance=ExtResource("2_ph6jt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="soldier3" parent="." unique_id=1111837474 instance=ExtResource("2_ph6jt")]
+
+[node name="soldier4" parent="." unique_id=1328086822 instance=ExtResource("2_ph6jt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="soldier5" parent="." unique_id=1224030317 instance=ExtResource("2_ph6jt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 2)
+
+[node name="RTSController" type="Control" parent="." unique_id=82165074]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_3nee8")

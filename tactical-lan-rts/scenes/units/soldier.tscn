@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://c0gw0r3ge2h7u"]
+
+[ext_resource type="Script" uid="uid://cye2gom0ev5uw" path="res://scripts/units/soldier.gd" id="1_1voyx"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_sbqex"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sbqex"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sbqex"]
+top_radius = 0.7
+bottom_radius = 0.7
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8hrwj"]
+albedo_color = Color(0.5299097, 0.92875874, 7.70092e-07, 1)
+
+[node name="soldier" type="CharacterBody3D" unique_id=50485714 groups=["units"]]
+script = ExtResource("1_1voyx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=531679516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_sbqex")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=178089365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_sbqex")
+
+[node name="SelectionRing" type="MeshInstance3D" parent="." unique_id=632153423]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+visible = false
+mesh = SubResource("CylinderMesh_sbqex")
+surface_material_override/0 = SubResource("StandardMaterial3D_8hrwj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=323610631]
