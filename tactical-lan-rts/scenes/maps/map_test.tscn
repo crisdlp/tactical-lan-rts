@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c7v824bjuicmn"]
 
+[ext_resource type="Script" uid="uid://iw8a8luuewc3" path="res://scripts/network/network_manager.gd" id="1_ph6jt"]
 [ext_resource type="Script" uid="uid://bhbnxjdcx03lo" path="res://scripts/system/camera_rig.gd" id="1_rd6yc"]
-[ext_resource type="PackedScene" uid="uid://c0gw0r3ge2h7u" path="res://scenes/units/soldier.tscn" id="2_ph6jt"]
 [ext_resource type="Script" uid="uid://cedqu38efrtdt" path="res://scripts/system/rts_controller.gd" id="3_3nee8"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qk5q5"]
@@ -21,6 +21,7 @@ size = Vector3(4, 2, 1)
 size = Vector3(4, 2, 1)
 
 [node name="MapTest" type="Node3D" unique_id=860426212]
+script = ExtResource("1_ph6jt")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=447140690]
 transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
@@ -64,20 +65,6 @@ transform = Transform3D(0.70710677, -0.40860704, 0.5770964, 0, 0.8161376, 0.5778
 projection = 1
 size = 18.0
 
-[node name="soldier" parent="." unique_id=50485714 instance=ExtResource("2_ph6jt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
-
-[node name="soldier2" parent="." unique_id=1139646449 instance=ExtResource("2_ph6jt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
-
-[node name="soldier3" parent="." unique_id=1111837474 instance=ExtResource("2_ph6jt")]
-
-[node name="soldier4" parent="." unique_id=1328086822 instance=ExtResource("2_ph6jt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="soldier5" parent="." unique_id=1224030317 instance=ExtResource("2_ph6jt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 2)
-
 [node name="RTSController" type="Control" parent="." unique_id=82165074]
 layout_mode = 3
 anchors_preset = 15
@@ -87,3 +74,36 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_3nee8")
+
+[node name="Units" type="Node3D" parent="." unique_id=1119201054]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=727053559]
+_spawnable_scenes = PackedStringArray("uid://c0gw0r3ge2h7u")
+spawn_path = NodePath("../Units")
+
+[node name="LANMenu" type="CanvasLayer" parent="." unique_id=2140056644]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LANMenu" unique_id=888707788]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="LANMenu/VBoxContainer" unique_id=1616202928]
+layout_mode = 2
+text = "Crear Partida (Host)"
+
+[node name="IPInput" type="LineEdit" parent="LANMenu/VBoxContainer" unique_id=473110413]
+layout_mode = 2
+text = "127.0.0.1"
+
+[node name="JoinButton" type="Button" parent="LANMenu/VBoxContainer" unique_id=1129637477]
+layout_mode = 2
+text = "Unirse por IP"

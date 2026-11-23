@@ -47,13 +47,16 @@ func _select_single_unit(mouse_pos: Vector2) -> void:
 	_deselect_all()
 	var result := _raycast_from_mouse(mouse_pos)
 	if result and result.collider.is_in_group("units"):
-		result.collider.set_selected(true)
-		selected_units.append(result.collider)
+		if result.collider.owner_id == multiplayer.get_unique_id():
+			result.collider.set_selected(true)
+			selected_units.append(result.collider)
 
 func _select_units_in_box() -> void:
 	_deselect_all()
 	var box := Rect2(drag_start, drag_end - drag_start).abs()
 	for unit in get_tree().get_nodes_in_group("units"):
+		if unit.owner_id != multiplayer.get_unique_id():
+			continue
 		var screen_pos := camera.unproject_position(unit.global_position)
 		if box.has_point(screen_pos):
 			unit.set_selected(true)
@@ -65,11 +68,11 @@ func _command_move(mouse_pos: Vector2) -> void:
 	var result := _raycast_from_mouse(mouse_pos)
 	if result:
 		var base_pos: Vector3 = result.position
-		# Formación simple para que no se amontonen en el mismo punto
 		var spacing := 1.8
 		for i in range(selected_units.size()):
 			var offset := Vector3((i % 3) * spacing, 0, (i / 3) * spacing)
-			selected_units[i].set_move_target(base_pos + offset)
+			# Enviar la orden al Host (ID 1) por red
+			selected_units[i].request_move.rpc_id(1, base_pos + offset)
 
 func _raycast_from_mouse(mouse_pos: Vector2) -> Dictionary:
 	var ray_origin := camera.project_ray_origin(mouse_pos)
